@@ -1,1 +1,2273 @@
-]
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobbin — Discover real-world design inspiration.</title>
+  
+  <!-- Inter font family for authentic neo-grotesque weight calibration -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;650;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#141414',
+            'ink-soft': '#262626',
+            canvas: '#ffffff',
+            'canvas-soft': '#f3f3f3',
+            field: '#f0f0f0',
+            'hairline-soft': '#f0f0f0',
+            hairline: '#e0e0e0',
+            'text-muted': '#707070',
+            'text-faint': '#adadad',
+            accent: '#0066ff', // The ONLY chromatic accent allowed in the system
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+          },
+          fontWeight: {
+            light: '300',
+            book: '450',
+            chunky: '650',
+          },
+          borderRadius: {
+            'squircle': '30%',
+            'pill': '9999px',
+            'card-sm': '16px',
+            'card-md': '24px',
+          },
+          spacing: {
+            'xxs': '4px',
+            'xs': '8px',
+            'sm': '12px',
+            'md': '16px',
+            'lg': '24px',
+            'xl': '32px',
+            'xxl': '48px',
+            'section': '80px',
+            'section-lg': '120px',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Strict Typography weight calibration imitating Saans */
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #ffffff;
+      color: #141414;
+      font-weight: 450;
+      line-height: 1.38;
+      letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Headings in signature 650 weight with tight line-heights */
+    h1, h2, h3, h4, .heading-display {
+      font-weight: 650;
+      letter-spacing: -0.015em;
+    }
+
+    .leading-display { line-height: 1.0; }
+    .leading-heading { line-height: 1.13; }
+
+    /* Mobbin signature Squircle (iOS 30% curvature) */
+    .app-icon-squircle {
+      border-radius: 30%;
+      flex-shrink: 0;
+      object-fit: cover;
+      user-select: none;
+    }
+
+    /* Overlay Scrim Badge */
+    .badge-overlay {
+      background: rgba(115, 115, 115, 0.56);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 4px 10px;
+    }
+
+    /* Electric Blue Commercial Accent Badge (Used strictly for commercial signals) */
+    .badge-popular {
+      background-color: #0066ff;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 3px 10px;
+      line-height: 1.3;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Primary and Outline Button Pills */
+    .button-primary {
+      background-color: #141414;
+      color: #ffffff;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.15s ease, transform 0.1s ease;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+    }
+    .button-primary:hover {
+      opacity: 0.92;
+    }
+    .button-primary:active {
+      transform: scale(0.98);
+    }
+
+    .button-outline {
+      background-color: #ffffff;
+      color: #141414;
+      border: 1px solid #e0e0e0;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 9px 19px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .button-outline:hover {
+      border-color: #141414;
+    }
+
+    .button-pill-soft {
+      background-color: #f3f3f3;
+      color: #141414;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 7px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.15s ease;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+    }
+    .button-pill-soft:hover {
+      background-color: #e5e5e5;
+    }
+
+    /* Input Field Chrome */
+    .text-input {
+      background-color: #f0f0f0;
+      color: #141414;
+      border-radius: 9999px;
+      border: 2px solid transparent;
+      padding: 10px 18px;
+      outline: none;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+      font-size: 14px;
+    }
+    .text-input:focus {
+      border-color: #141414;
+      background-color: #ffffff;
+    }
+    .text-input::placeholder {
+      color: #adadad;
+    }
+
+    /* Segmented Control Track and Active Pill */
+    .segmented-track {
+      background-color: #f3f3f3;
+      border-radius: 9999px;
+      padding: 4px;
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+    }
+    .segmented-pill {
+      border-radius: 9999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #707070;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color 0.15s ease;
+      user-select: none;
+    }
+    .segmented-pill.active {
+      background-color: #ffffff;
+      color: #141414;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Glass Monolith Trophy representation */
+    .glass-monolith {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(220, 220, 220, 0.25) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Hide scrollbars for clean marquee and carousels */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Device frame mockup styles */
+    .phone-mockup {
+      aspect-ratio: 9 / 19.5;
+      border-radius: 36px;
+      border: 4px solid #141414;
+      overflow: hidden;
+      background: #ffffff;
+      position: relative;
+    }
+    .phone-notch {
+      width: 80px;
+      height: 18px;
+      background: #141414;
+      border-radius: 9999px;
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+
+    /* Comparison Table highlighted Pro column */
+    .compare-pro-highlight {
+      background-color: #f3f3f3;
+      border-left: 1px solid #e0e0e0;
+      border-right: 1px solid #e0e0e0;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-ink antialiased min-h-screen flex flex-col selection:bg-canvas-soft selection:text-ink">
+
+  <header class="sticky top-4 z-50 px-4 w-full flex justify-center pointer-events-none">
+    <nav class="pointer-events-auto w-full max-w-5xl bg-canvas-soft/95 backdrop-blur-md rounded-pill px-3 py-2 flex items-center justify-between transition-all duration-200">
+      
+      <!-- Brand Logomark + Wordmark -->
+      <a href="#home" class="flex items-center gap-2.5 pl-2 group" aria-label="Mobbin Home">
+        <div class="w-8 h-8 bg-ink rounded-squircle flex items-center justify-center transition-transform group-hover:scale-105">
+          <!-- Geometric Mobbin glyph: two nested squircles -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="8" height="8" rx="2" />
+            <rect x="13" y="3" width="8" height="8" rx="2" />
+            <rect x="3" y="13" width="8" height="8" rx="2" />
+            <rect x="13" y="13" width="8" height="8" rx="2" />
+          </svg>
+        </div>
+        <span class="font-chunky text-lg tracking-tight text-ink font-semibold">Mobbin.</span>
+      </a>
+
+      <!-- Center Nav Links (Hidden on small viewports) -->
+      <div class="hidden md:flex items-center gap-1 text-[14px] font-semibold text-ink">
+        <a href="#library-section" class="px-3.5 py-1.5 rounded-pill hover:bg-white/80 transition-colors">Library</a>
+        <a href="#patterns-section" class="px-3.5 py-1.5 rounded-pill hover:bg-white/80 transition-colors">Patterns</a>
+        <a href="#awards-section" class="px-3.5 py-1.5 rounded-pill hover:bg-white/80 transition-colors">Awards</a>
+        <a href="#pricing-section" class="px-3.5 py-1.5 rounded-pill hover:bg-white/80 transition-colors">Pricing</a>
+      </div>
+
+      <!-- Right CTAs & State Controls -->
+      <div class="flex items-center gap-2">
+        <!-- Bookmark Collection Counter Button -->
+        <button id="nav-bookmarks-btn" class="button-pill-soft text-xs gap-1.5 px-3 py-1.5 hidden sm:inline-flex" title="View Saved Screens">
+          <svg class="w-3.5 h-3.5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+          </svg>
+          <span>Saved</span>
+          <span id="saved-counter-badge" class="bg-ink text-white text-[10px] px-1.5 py-0.2 rounded-pill font-mono">0</span>
+        </button>
+
+        <!-- Log In Trigger -->
+        <button id="open-login-btn" class="text-[14px] font-semibold text-ink px-3 py-1.5 rounded-pill hover:bg-white/80 transition-colors">
+          Log in
+        </button>
+
+        <!-- Primary Action Pill -->
+        <button id="open-signup-btn" class="button-primary text-xs sm:text-sm !py-2 !px-4">
+          Join for free
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-grow">
+    
+    <section id="home" class="pt-16 pb-14 md:pt-24 md:pb-20 max-w-5xl mx-auto px-6 text-center">
+      
+      <!-- Headline in 650 weight, line height 1.0, terminal period -->
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-chunky leading-display tracking-tight text-ink mb-6 max-w-4xl mx-auto">
+        Discover real-world design inspiration.
+      </h1>
+
+      <!-- Airy subtitle at weight 300 -->
+      <p class="text-lg sm:text-xl md:text-2xl font-light text-text-muted leading-relaxed max-w-2xl mx-auto mb-10">
+        Mobbin is the world's largest UI & UX reference library for digital product designers.
+      </p>
+
+      <!-- Action Pill Group -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+        <a href="#library-section" class="button-primary text-base px-6 py-3">
+          Explore the library
+        </a>
+        <a href="#pricing-section" class="button-outline text-base px-6 py-3">
+          View Pro plans
+        </a>
+      </div>
+
+      <!-- Library Counter Metrics Bar -->
+      <div class="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-8 py-2.5 px-6 rounded-pill bg-canvas-soft text-xs sm:text-sm font-medium text-text-muted mb-16">
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
+          <strong class="text-ink font-semibold">350,000+</strong> curated screens
+        </div>
+        <span class="text-hairline hidden sm:inline">•</span>
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
+          <strong class="text-ink font-semibold">1,200+</strong> top-tier iOS & Web apps
+        </div>
+        <span class="text-hairline hidden sm:inline">•</span>
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-ink"></span>
+          <strong class="text-ink font-semibold">50+</strong> end-to-end user flows
+        </div>
+      </div>
+
+      <div class="relative w-full overflow-hidden py-4">
+        <p class="text-xs uppercase tracking-wider text-text-faint font-semibold mb-6">Featured product design teams</p>
+        <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-7 max-w-3xl mx-auto opacity-90">
+          
+          <!-- Linear Squircle -->
+          <div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="filterByApp('Linear')">
+            <div class="w-14 h-14 bg-[#121316] app-icon-squircle p-3 flex items-center justify-center shadow-none transition-transform group-hover:scale-105">
+              <svg viewBox="0 0 100 100" class="w-full h-full text-white fill-current">
+                <path d="M10 88L88 10M10 10h78v78H10z" stroke="currentColor" stroke-width="8" fill="none"/>
+              </svg>
+            </div>
+            <span class="text-xs text-text-muted font-medium">Linear</span>
+          </div>
+
+          <!-- Airbnb Squircle -->
+          <div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="filterByApp('Airbnb')">
+            <div class="w-14 h-14 bg-[#FF385C] app-icon-squircle p-3 flex items-center justify-center transition-transform group-hover:scale-105">
+              <svg viewBox="0 0 32 32" class="w-full h-full fill-white">
+                <path d="M16 1c2 0 4 3 4 7 0 5-3 9-4 12-1-3-4-7-4-12 0-4 2-7 4-7zm0 15c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3z"/>
+              </svg>
+            </div>
+            <span class="text-xs text-text-muted font-medium">Airbnb</span>
+          </div>
+
+          <!-- Spotify Squircle -->
+          <div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="filterByApp('Spotify')">
+            <div class="w-14 h-14 bg-[#1DB954] app-icon-squircle p-3 flex items-center justify-center transition-transform group-hover:scale-105">
+              <svg viewBox="0 0 24 24" class="w-full h-full fill-white">
+                <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10A10 10 0 0 0 12 2zm4.586 14.424a.625.625 0 0 1-.86.208c-2.355-1.439-5.32-1.765-8.813-.967a.625.625 0 1 1-.277-1.22c3.824-.873 7.108-.504 9.742 1.118a.626.626 0 0 1 .208.861zm1.226-2.724a.782.782 0 0 1-1.077.257c-2.695-1.657-6.804-2.136-9.99-1.168a.782.782 0 1 1-.453-1.498c3.637-1.103 8.183-.574 11.263 1.332a.782.782 0 0 1 .257 1.077zm.106-2.836C14.686 8.94 9.36 8.764 6.27 9.702a.937.937 0 1 1-.548-1.792c3.551-1.078 9.429-.874 13.195 1.362a.938.938 0 0 1-1.002 1.592z"/>
+              </svg>
+            </div>
+            <span class="text-xs text-text-muted font-medium">Spotify</span>
+          </div>
+
+          <!-- Arc Search Squircle -->
+          <div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="filterByApp('Arc')">
+            <div class="w-14 h-14 bg-[#141414] app-icon-squircle p-3 flex items-center justify-center transition-transform group-hover:scale-105">
+              <svg viewBox="0 0 24 24" class="w-full h-full fill-none stroke-white" stroke-width="2.5">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3a9 9 0 0 1 9 9"/>
+              </svg>
+            </div>
+            <span class="text-xs text-text-muted font-medium">Arc</span>
+          </div>
+
+          <!-- Raycast Squircle -->
+          <div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="filterByApp('Raycast')">
+            <div class="w-14 h-14 bg-[#FF6363] app-icon-squircle p-3 flex items-center justify-center transition-transform group-hover:scale-105">
+              <svg viewBox="0 0 24 24" class="w-full h-full fill-white">
+                <path d="M12 2L2 12l10 10 10-10L12 2zm0 4.5l5.5 5.5-5.5 5.5-5.5-5.5L12 6.5z"/>
+              </svg>
+            </div>
+            <span class="text-xs text-text-muted font-medium">Raycast</span>
+          </div>
+
+          <!-- Duolingo Squircle -->
+          <div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="filterByApp('Duolingo')">
+            <div class="w-14 h-14 bg-[#58CC02] app-icon-squircle p-3 flex items-center justify-center transition-transform group-hover:scale-105">
+              <svg viewBox="0 0 24 24" class="w-full h-full fill-white">
+                <circle cx="8" cy="11" r="3"/>
+                <circle cx="16" cy="11" r="3"/>
+                <path d="M10 15h4"/>
+              </svg>
+            </div>
+            <span class="text-xs text-text-muted font-medium">Duolingo</span>
+          </div>
+
+          <!-- Notion Squircle -->
+          <div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="filterByApp('Notion')">
+            <div class="w-14 h-14 bg-[#000000] app-icon-squircle p-3 flex items-center justify-center transition-transform group-hover:scale-105">
+              <span class="text-white font-bold text-xl font-serif">N</span>
+            </div>
+            <span class="text-xs text-text-muted font-medium">Notion</span>
+          </div>
+
+          <!-- Uber Squircle -->
+          <div class="flex flex-col items-center gap-2 group cursor-pointer" onclick="filterByApp('Uber')">
+            <div class="w-14 h-14 bg-[#000000] app-icon-squircle p-3 flex items-center justify-center transition-transform group-hover:scale-105">
+              <span class="text-white font-black text-xs tracking-tighter">UBER</span>
+            </div>
+            <span class="text-xs text-text-muted font-medium">Uber</span>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <section id="library-section" class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-8">
+      
+      <!-- Search and Platform Segmented Bar -->
+      <div class="bg-white border border-hairline-soft rounded-card-md p-4 mb-6 space-y-4">
+        
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          
+          <!-- Search input with unbordered #f0f0f0 field and 2px ink focus ring -->
+          <div class="relative flex-grow max-w-xl">
+            <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-text-muted">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" stroke-width="2"/>
+                <path d="m21 21-4.35-4.35" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <input 
+              type="text" 
+              id="library-search-input" 
+              placeholder="Search flows by app, pattern, or keyword..."
+              class="w-full pl-11 pr-10 py-2.5 text-input"
+            >
+            <button id="clear-search-btn" class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-text-muted hover:text-ink">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Segmented Platform Pill Toggle -->
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-semibold text-text-muted uppercase tracking-wider hidden sm:inline">Platform</span>
+            <div class="segmented-track" id="platform-segmented-toggle">
+              <button class="segmented-pill active" data-platform="all">All</button>
+              <button class="segmented-pill" data-platform="ios">iOS</button>
+              <button class="segmented-pill" data-platform="web">Web</button>
+              <button class="segmented-pill" data-platform="android">Android</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Category Pills Filter Bar -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-2 border-t border-hairline-soft">
+          <span class="text-xs font-semibold text-text-muted uppercase tracking-wider pr-1 whitespace-nowrap">Pattern</span>
+          <div class="flex items-center gap-2" id="category-filter-container">
+            <button class="button-pill-soft text-xs !bg-ink !text-white active-category-btn" data-category="all">All</button>
+            <button class="button-pill-soft text-xs" data-category="Onboarding">Onboarding</button>
+            <button class="button-pill-soft text-xs" data-category="Paywall">Paywall</button>
+            <button class="button-pill-soft text-xs" data-category="Checkout">Checkout</button>
+            <button class="button-pill-soft text-xs" data-category="Search & Filter">Search & Filter</button>
+            <button class="button-pill-soft text-xs" data-category="Settings & Account">Settings & Account</button>
+            <button class="button-pill-soft text-xs" data-category="Profile">Profile</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Result Counter and Quick Sort -->
+      <div class="flex items-center justify-between px-2 mb-6 text-sm text-text-muted">
+        <div>
+          <span id="results-count-text" class="font-semibold text-ink">12 flows</span> found
+          <span id="active-filter-badge" class="ml-2 hidden text-xs bg-canvas-soft text-ink px-2.5 py-0.5 rounded-pill font-medium"></span>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <span>Sort by:</span>
+          <select id="sort-selector" class="bg-canvas-soft rounded-pill px-2.5 py-1 text-ink font-medium border-none outline-none cursor-pointer">
+            <option value="featured">Featured First</option>
+            <option value="screens">Most Screens</option>
+            <option value="az">Alphabetical</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="screens-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+
+      <!-- Empty State Container -->
+      <div id="empty-state-view" class="hidden text-center py-20 px-4 bg-canvas-soft rounded-card-md my-8">
+        <div class="w-12 h-12 rounded-squircle bg-field flex items-center justify-center mx-auto mb-4 text-text-muted">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-chunky text-ink mb-2">No matching product interfaces found.</h3>
+        <p class="text-text-muted text-sm max-w-sm mx-auto mb-6">Try clearing your filters or search keywords to browse our complete reference archive.</p>
+        <button id="reset-filters-btn" class="button-primary text-xs">Reset all filters</button>
+      </div>
+
+    </section>
+
+    <section id="awards-section" class="py-16 md:py-24 bg-white border-t border-hairline-soft">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- Awards Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-2 text-text-muted text-xs uppercase tracking-widest font-semibold mb-3">
+            <span>‹‹‹</span>
+            <span>Mobbin Annual Design Awards</span>
+            <span>›››</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-chunky leading-heading text-ink mb-4">
+            The votes are in.
+          </h2>
+          <p class="text-text-muted font-light text-base sm:text-lg">
+            Honoring product teams setting the standard for mobile and web interface craft.
+          </p>
+        </div>
+
+        <!-- Glass Monolith Featured Winner Banner -->
+        <div class="glass-monolith rounded-card-md p-8 md:p-12 mb-16 relative overflow-hidden bg-canvas-soft border border-hairline-soft">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            
+            <div class="md:col-span-7 space-y-4">
+              <span class="badge-overlay !bg-ink/80 text-white">App of the Year 2026 Winner</span>
+              <h3 class="text-3xl sm:text-4xl font-chunky text-ink">Linear Mobile</h3>
+              <p class="text-text-muted text-sm sm:text-base leading-relaxed">
+                Awarded for extraordinary execution of gesture-driven issue triaging, sub-100ms optimistic UI updates, and an unapologetically dense, typography-first dark mode workflow.
+              </p>
+              
+              <div class="flex items-center gap-6 pt-2">
+                <div>
+                  <div class="text-2xl font-chunky text-ink">41.8%</div>
+                  <div class="text-xs text-text-muted">Community vote share</div>
+                </div>
+                <div class="h-8 w-px bg-hairline"></div>
+                <div>
+                  <div class="text-2xl font-chunky text-ink">1,420+</div>
+                  <div class="text-xs text-text-muted">Verified design jurists</div>
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <button onclick="openScreenInspector('linear-triage')" class="button-pill-soft text-xs gap-1.5 !bg-ink !text-white hover:!bg-black">
+                  <span>Explore winner screens</span>
+                  <span>↗</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Trophy visual mockup -->
+            <div class="md:col-span-5 flex justify-center">
+              <div class="w-56 h-72 rounded-card-md bg-white border border-hairline p-4 flex flex-col justify-between shadow-none">
+                <div class="flex items-center justify-between">
+                  <div class="w-10 h-10 bg-ink app-icon-squircle flex items-center justify-center text-white">
+                    <svg viewBox="0 0 100 100" class="w-6 h-6 fill-none stroke-current" stroke-width="8">
+                      <path d="M10 88L88 10M10 10h78v78H10z"/>
+                    </svg>
+                  </div>
+                  <span class="text-xs font-mono text-text-faint">#01 / 2026</span>
+                </div>
+                <div class="text-center py-6">
+                  <div class="text-xs uppercase text-text-muted tracking-wider mb-1">Mobbin Trophy</div>
+                  <div class="text-lg font-chunky text-ink">Craft Excellence</div>
+                  <div class="text-[11px] text-text-faint mt-1">iOS Productivity Category</div>
+                </div>
+                <div class="text-[11px] text-center text-text-muted border-t border-hairline-soft pt-2">
+                  Audited by Mobbin Curators
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3-up Curator / Juror Portraits (Strictly Grayscale) -->
+        <div>
+          <h4 class="text-xl font-chunky text-ink mb-6">Distinguished Grand Jury.</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Juror 1 -->
+            <div class="relative group rounded-card-md overflow-hidden bg-canvas-soft border border-hairline-soft aspect-square">
+              <img 
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" 
+                alt="Elena Rostova" 
+                class="w-full h-full object-cover grayscale contrast-125 transition-transform duration-300 group-hover:scale-102"
+              >
+              <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                <div class="badge-overlay mb-1">VP Design · Vercel</div>
+                <div class="text-white font-chunky text-lg">Elena Rostova</div>
+                <div class="text-white/70 text-xs">Curator & Jury President</div>
+              </div>
+            </div>
+
+            <!-- Juror 2 -->
+            <div class="relative group rounded-card-md overflow-hidden bg-canvas-soft border border-hairline-soft aspect-square">
+              <img 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" 
+                alt="Marcus Chen" 
+                class="w-full h-full object-cover grayscale contrast-125 transition-transform duration-300 group-hover:scale-102"
+              >
+              <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                <div class="badge-overlay mb-1">Principal Systems Architect · Stripe</div>
+                <div class="text-white font-chunky text-lg">Marcus Chen</div>
+                <div class="text-white/70 text-xs">Design Systems Juror</div>
+              </div>
+            </div>
+
+            <!-- Juror 3 -->
+            <div class="relative group rounded-card-md overflow-hidden bg-canvas-soft border border-hairline-soft aspect-square">
+              <img 
+                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80" 
+                alt="Aria Sterling" 
+                class="w-full h-full object-cover grayscale contrast-125 transition-transform duration-300 group-hover:scale-102"
+              >
+              <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                <div class="badge-overlay mb-1">Lead Product Designer · Cash App</div>
+                <div class="text-white font-chunky text-lg">Aria Sterling</div>
+                <div class="text-white/70 text-xs">Mobile Motion & Micro-UX Juror</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="pricing-section" class="py-20 md:py-28 max-w-5xl mx-auto px-6">
+      
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <h2 class="text-4xl sm:text-5xl font-chunky leading-heading text-ink mb-4">
+          Simple, transparent pricing.
+        </h2>
+        <p class="text-text-muted font-light text-lg mb-8">
+          Unlock unlimited screen flows, hi-res inspection, and pattern search.
+        </p>
+
+        <!-- Segmented Billing Period Toggle with ONLY Electric Blue Callout -->
+        <div class="segmented-track" id="billing-cycle-toggle">
+          <button class="segmented-pill" data-billing="monthly">Billed monthly</button>
+          <button class="segmented-pill active" data-billing="yearly">
+            <span>Billed yearly</span>
+            <!-- Electric Blue Commercial Signal (strict adherence: sole chromatic accent) -->
+            <span class="badge-popular ml-2 text-[10px] !py-0.5 !px-2">Save 20%</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2-up Pricing Cards (Team vs Pro Featured) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 items-stretch">
+        
+        <!-- Team Plan (Default outline card) -->
+        <div class="bg-canvas border border-hairline-soft rounded-card-md p-8 sm:p-10 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-2xl font-chunky text-ink">Team</h3>
+              <span class="text-xs text-text-muted bg-canvas-soft px-3 py-1 rounded-pill">For design squads</span>
+            </div>
+            
+            <p class="text-text-muted text-sm mb-6">Centralized pattern library access, team bookmarks, and shared design critique boards.</p>
+            
+            <div class="flex items-baseline gap-2 mb-8">
+              <span class="text-5xl font-chunky text-ink" id="team-price-val">$24</span>
+              <span class="text-sm text-text-muted" id="team-price-period">/ member / month</span>
+            </div>
+
+            <ul class="space-y-3.5 text-sm text-ink mb-8 border-t border-hairline-soft pt-6">
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-ink flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Everything in Pro for all members</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-ink flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Shared team collections & moodboards</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-ink flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Centralized admin billing & seat management</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-ink flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Figma plugin team-wide license</span>
+              </li>
+            </ul>
+          </div>
+
+          <button class="button-outline w-full py-3">Start 7-day trial</button>
+        </div>
+
+        <!-- Pro Plan (Featured: #f3f3f3 Soft Canvas fill, borderless, Popular Blue Badge) -->
+        <div class="bg-canvas-soft rounded-card-md p-8 sm:p-10 flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2.5">
+                <h3 class="text-2xl font-chunky text-ink">Pro</h3>
+                <!-- Electric blue accent badge reserved exclusively for commercial signals -->
+                <span class="badge-popular">Popular</span>
+              </div>
+              <span class="text-xs text-text-muted bg-white px-3 py-1 rounded-pill">Individual pro</span>
+            </div>
+
+            <p class="text-text-muted text-sm mb-6">Unrestricted access to every mobile and web user flow, updated weekly with new app breakdowns.</p>
+
+            <div class="flex items-baseline gap-2 mb-8">
+              <span class="text-5xl font-chunky text-ink" id="pro-price-val">$12</span>
+              <span class="text-sm text-text-muted" id="pro-price-period">/ month (billed yearly)</span>
+            </div>
+
+            <ul class="space-y-3.5 text-sm text-ink mb-8 border-t border-hairline pt-6">
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-ink flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Unlimited access to 350,000+ screens</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-ink flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>High-resolution flow inspector & zoom</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-ink flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Save unlimited bookmarks to collections</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-ink flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>Direct PNG & Figma export</span>
+              </li>
+            </ul>
+          </div>
+
+          <button class="button-primary w-full py-3">Get Pro</button>
+        </div>
+
+      </div>
+
+      <div class="overflow-x-auto no-scrollbar pt-6">
+        <h4 class="text-2xl font-chunky text-ink mb-6 text-center">Compare full plan features.</h4>
+        <table class="w-full text-left text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-hairline">
+              <th class="py-4 px-4 font-semibold text-text-muted w-1/2">Capabilities</th>
+              <th class="py-4 px-4 font-semibold text-ink text-center w-1/4">Free</th>
+              <th class="py-4 px-4 font-semibold text-ink text-center w-1/4 compare-pro-highlight rounded-t-card-sm">Pro</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline-soft">
+            <tr>
+              <td class="py-3.5 px-4 text-ink">Screens viewable per week</td>
+              <td class="py-3.5 px-4 text-text-muted text-center">15 screens</td>
+              <td class="py-3.5 px-4 text-ink font-semibold text-center compare-pro-highlight">Unlimited</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 text-ink">Screen inspector & flow carousel</td>
+              <td class="py-3.5 px-4 text-text-muted text-center">Basic (Low-res)</td>
+              <td class="py-3.5 px-4 text-ink font-semibold text-center compare-pro-highlight">Retina 4K Zoom</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 text-ink">Advanced search & UI pattern filters</td>
+              <td class="py-3.5 px-4 text-text-muted text-center">—</td>
+              <td class="py-3.5 px-4 text-ink font-semibold text-center compare-pro-highlight">Full library access</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 text-ink">Figma plugin sync</td>
+              <td class="py-3.5 px-4 text-text-muted text-center">—</td>
+              <td class="py-3.5 px-4 text-ink font-semibold text-center compare-pro-highlight">Direct 1-click import</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 text-ink">Export formats</td>
+              <td class="py-3.5 px-4 text-text-muted text-center">Standard PNG</td>
+              <td class="py-3.5 px-4 text-ink font-semibold text-center compare-pro-highlight rounded-b-card-sm">Vector & Lossless</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <section class="py-16 bg-white border-t border-hairline-soft">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <h2 class="text-3xl sm:text-4xl font-chunky leading-heading text-ink mb-3">
+            Trusted by the best product designers.
+          </h2>
+          <p class="text-text-muted font-light text-base">
+            See how world-class designers use Mobbin to fast-track their interface discoveries.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Testimonial 1 -->
+          <div class="bg-canvas border border-hairline-soft rounded-card-sm p-6 flex flex-col justify-between">
+            <p class="text-sm text-ink mb-6 leading-relaxed">
+              "Mobbin has replaced Google Images and Pinterest completely for our product team. It is our undisputed source of truth when designing mobile paywalls and checkout flows."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Sarah J." class="w-10 h-10 rounded-full object-cover grayscale">
+                <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-ink text-white rounded-full text-[8px] flex items-center justify-center font-bold">F</span>
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-ink">Sarah Jenkins</div>
+                <div class="text-[11px] text-text-muted">Staff Designer at Figma</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="bg-canvas border border-hairline-soft rounded-card-sm p-6 flex flex-col justify-between">
+            <p class="text-sm text-ink mb-6 leading-relaxed">
+              "The ability to inspect real multi-step onboarding sequences rather than isolated shots is what separates Mobbin from every design gallery online."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Liam V." class="w-10 h-10 rounded-full object-cover grayscale">
+                <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-ink text-white rounded-full text-[8px] flex items-center justify-center font-bold">V</span>
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-ink">Liam Vance</div>
+                <div class="text-[11px] text-text-muted">Lead Designer at Vercel</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="bg-canvas border border-hairline-soft rounded-card-sm p-6 flex flex-col justify-between">
+            <p class="text-sm text-ink mb-6 leading-relaxed">
+              "Our engineering and product teams speak the exact same language now because we can cite production patterns straight out of Mobbin."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Maya K." class="w-10 h-10 rounded-full object-cover grayscale">
+                <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-ink text-white rounded-full text-[8px] flex items-center justify-center font-bold">S</span>
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-ink">Maya Kapoor</div>
+                <div class="text-[11px] text-text-muted">Product Architect at Stripe</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 4 -->
+          <div class="bg-canvas border border-hairline-soft rounded-card-sm p-6 flex flex-col justify-between">
+            <p class="text-sm text-ink mb-6 leading-relaxed">
+              "Worth every single penny. It saves me at least 5 hours of benchmarking research at the kickoff of every sprint."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Tomas D." class="w-10 h-10 rounded-full object-cover grayscale">
+                <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-ink text-white rounded-full text-[8px] flex items-center justify-center font-bold">N</span>
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-ink">Tomas Da Silva</div>
+                <div class="text-[11px] text-text-muted">Senior UX Lead at Notion</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-chunky leading-heading text-ink mb-3">
+          Frequently asked questions.
+        </h2>
+        <p class="text-text-muted font-light text-base">
+          Everything you need to know about our library and memberships.
+        </p>
+      </div>
+
+      <div class="space-y-3" id="faq-accordion-container">
+        
+        <!-- FAQ item 1 -->
+        <div class="faq-row bg-canvas-soft rounded-card-sm overflow-hidden transition-all">
+          <button class="w-full p-5 text-left flex items-center justify-between font-semibold text-ink text-sm sm:text-base faq-trigger">
+            <span>How frequently is the reference library updated?</span>
+            <svg class="w-4 h-4 text-text-muted transform transition-transform duration-200 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 text-sm text-text-muted hidden faq-content">
+            We capture and audit new mobile app releases and web interfaces daily. Our editorial curation team publishes over 1,500 new screens and 40 complete user flows each week.
+          </div>
+        </div>
+
+        <!-- FAQ item 2 -->
+        <div class="faq-row bg-canvas-soft rounded-card-sm overflow-hidden transition-all">
+          <button class="w-full p-5 text-left flex items-center justify-between font-semibold text-ink text-sm sm:text-base faq-trigger">
+            <span>Can I export screens directly into Figma?</span>
+            <svg class="w-4 h-4 text-text-muted transform transition-transform duration-200 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 text-sm text-text-muted hidden faq-content">
+            Yes! With a Pro or Team membership, you can use our native Figma plugin to paste full user flow sequences or individual high-resolution screens directly into your workspace canvas with one click.
+          </div>
+        </div>
+
+        <!-- FAQ item 3 -->
+        <div class="faq-row bg-canvas-soft rounded-card-sm overflow-hidden transition-all">
+          <button class="w-full p-5 text-left flex items-center justify-between font-semibold text-ink text-sm sm:text-base faq-trigger">
+            <span>What platforms do you support?</span>
+            <svg class="w-4 h-4 text-text-muted transform transition-transform duration-200 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 text-sm text-text-muted hidden faq-content">
+            Mobbin covers iOS, Android, and Web applications. You can filter flows strictly by platform using the segmented control at the top of the reference library.
+          </div>
+        </div>
+
+        <!-- FAQ item 4 -->
+        <div class="faq-row bg-canvas-soft rounded-card-sm overflow-hidden transition-all">
+          <button class="w-full p-5 text-left flex items-center justify-between font-semibold text-ink text-sm sm:text-base faq-trigger">
+            <span>Can I cancel my subscription anytime?</span>
+            <svg class="w-4 h-4 text-text-muted transform transition-transform duration-200 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 text-sm text-text-muted hidden faq-content">
+            Absolutely. There are no lock-in contracts. You can cancel your membership anytime in one click from your account billing settings.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-ink text-white pt-16 pb-12 px-6 sm:px-12 rounded-t-card-md mt-16">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Top Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-16 border-b border-white/10">
+        
+        <!-- Brand wordmark and statement -->
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-7 h-7 bg-white rounded-squircle flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="3">
+                <rect x="3" y="3" width="8" height="8" rx="2" />
+                <rect x="13" y="3" width="8" height="8" rx="2" />
+                <rect x="3" y="13" width="8" height="8" rx="2" />
+                <rect x="13" y="13" width="8" height="8" rx="2" />
+              </svg>
+            </div>
+            <span class="text-2xl font-chunky tracking-tight text-white">Mobbin.</span>
+          </div>
+          <p class="text-text-faint text-sm max-w-sm font-light leading-relaxed">
+            The world's largest UI & UX design reference library. Built for product designers, engineers, and digital builders.
+          </p>
+        </div>
+
+        <!-- Footer Links Columns -->
+        <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
+          <div>
+            <h5 class="text-white font-semibold mb-4 text-xs uppercase tracking-wider">Browse</h5>
+            <ul class="space-y-2.5 text-text-faint">
+              <li><a href="#library-section" class="hover:text-white transition-colors">iOS Apps</a></li>
+              <li><a href="#library-section" class="hover:text-white transition-colors">Web Apps</a></li>
+              <li><a href="#library-section" class="hover:text-white transition-colors">Android Apps</a></li>
+              <li><a href="#library-section" class="hover:text-white transition-colors">UI Elements</a></li>
+              <li><a href="#library-section" class="hover:text-white transition-colors">User Flows</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="text-white font-semibold mb-4 text-xs uppercase tracking-wider">Company</h5>
+            <ul class="space-y-2.5 text-text-faint">
+              <li><a href="#awards-section" class="hover:text-white transition-colors">Design Awards</a></li>
+              <li><a href="#pricing-section" class="hover:text-white transition-colors">Pricing Plans</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Figma Plugin</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Changelog</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Manifesto</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="text-white font-semibold mb-4 text-xs uppercase tracking-wider">Legal</h5>
+            <ul class="space-y-2.5 text-text-faint">
+              <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Cookie Settings</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Security</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-text-faint gap-4">
+        <div>
+          © 2026 Mobbin Design Pte. Ltd. All rights reserved.
+        </div>
+        <div class="flex items-center gap-6">
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>All systems normal</span>
+          </span>
+          <span>Crafted strictly in ink & canvas.</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <div id="screen-inspector-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-card-md w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden relative shadow-2xl">
+      
+      <!-- Modal Header Bar -->
+      <div class="px-6 py-4 border-b border-hairline-soft flex items-center justify-between bg-white z-10">
+        <div class="flex items-center gap-3">
+          <div id="inspector-app-icon" class="w-10 h-10 app-icon-squircle bg-ink flex items-center justify-center text-white font-bold text-sm">
+            <!-- Icon injected by JS -->
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 id="inspector-app-name" class="font-chunky text-base text-ink">Linear</h3>
+              <span id="inspector-platform-badge" class="badge-overlay !bg-canvas-soft !text-ink text-[10px]">iOS</span>
+            </div>
+            <p id="inspector-screen-name" class="text-xs text-text-muted">Issue Triage Command Menu</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Bookmark button -->
+          <button id="inspector-save-btn" class="button-pill-soft text-xs gap-1.5 px-3 py-1.5" title="Save Flow">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+            <span id="inspector-save-label">Save</span>
+          </button>
+          
+          <!-- Copy link button -->
+          <button id="inspector-copy-btn" class="button-pill-soft text-xs gap-1.5 px-3 py-1.5" title="Copy Link">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span>Share</span>
+          </button>
+
+          <!-- Close Modal -->
+          <button id="close-inspector-btn" class="w-8 h-8 rounded-pill flex items-center justify-center text-text-muted hover:bg-canvas-soft hover:text-ink transition-colors ml-2" aria-label="Close Inspector">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Device Preview Carousel + Flow breakdown) -->
+      <div class="flex-grow overflow-y-auto p-6 bg-canvas-soft flex flex-col items-center justify-center">
+        
+        <!-- Multi-Step Flow Indicator Bar -->
+        <div class="flex items-center justify-between w-full max-w-sm mb-4">
+          <button id="prev-step-btn" class="button-pill-soft text-xs !p-2 disabled:opacity-40" disabled>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <span id="step-counter-label" class="text-xs font-semibold text-text-muted">Screen 1 of 4 in flow</span>
+          <button id="next-step-btn" class="button-pill-soft text-xs !p-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <!-- Device Canvas Container -->
+        <div class="w-full max-w-xs sm:max-w-sm transition-all duration-300 transform" id="inspector-mockup-frame">
+          <!-- Injected dynamic realistic mockup component -->
+        </div>
+
+      </div>
+
+      <!-- Modal Footer (Pattern metadata tags) -->
+      <div class="px-6 py-4 bg-white border-t border-hairline-soft flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2 flex-wrap" id="inspector-pattern-tags">
+          <span class="text-text-muted font-medium">Patterns:</span>
+          <!-- Pattern pill chips injected dynamically -->
+        </div>
+        <div class="text-text-muted">
+          Audited by Mobbin UI Lab · Released March 2026
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="auth-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-card-md w-full max-w-md p-8 relative shadow-2xl">
+      
+      <button id="close-auth-btn" class="absolute top-5 right-5 w-8 h-8 rounded-pill flex items-center justify-center text-text-muted hover:bg-canvas-soft hover:text-ink transition-colors" aria-label="Close Auth Modal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-10 h-10 bg-ink rounded-squircle flex items-center justify-center text-white mx-auto mb-3">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="3" y="3" width="8" height="8" rx="2" />
+            <rect x="13" y="3" width="8" height="8" rx="2" />
+            <rect x="3" y="13" width="8" height="8" rx="2" />
+            <rect x="13" y="13" width="8" height="8" rx="2" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-chunky text-ink mb-1" id="auth-modal-title">Join Mobbin for free.</h3>
+        <p class="text-xs text-text-muted">Start bookmarking product flows and reference patterns.</p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Google SSO Button Pill -->
+        <button id="auth-google-btn" class="button-outline w-full py-2.5 gap-2.5 text-xs sm:text-sm">
+          <svg class="w-4 h-4" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <div class="flex items-center gap-3 my-2">
+          <div class="h-px bg-hairline-soft flex-grow"></div>
+          <span class="text-[11px] text-text-faint uppercase">or</span>
+          <div class="h-px bg-hairline-soft flex-grow"></div>
+        </div>
+
+        <form id="auth-email-form" class="space-y-3" onsubmit="event.preventDefault(); handleAuthSubmit();">
+          <div>
+            <label class="block text-xs font-semibold text-text-muted mb-1.5">Work Email</label>
+            <input type="email" id="auth-email-input" required placeholder="name@company.com" class="w-full text-input">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-text-muted mb-1.5">Password</label>
+            <input type="password" id="auth-password-input" required placeholder="••••••••••••" class="w-full text-input">
+          </div>
+          <button type="submit" class="button-primary w-full py-2.5 mt-2">
+            Continue with Email
+          </button>
+        </form>
+
+        <p class="text-[11px] text-text-faint text-center pt-2 leading-relaxed">
+          By continuing, you agree to Mobbin's Terms of Service and Privacy Policy.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-6 inset-x-0 flex justify-center z-50 pointer-events-none transition-all duration-300 opacity-0 transform translate-y-3">
+    <div id="toast-message" class="bg-ink text-white text-xs font-medium px-4 py-2.5 rounded-pill shadow-none flex items-center gap-2 pointer-events-auto">
+      <!-- Injected message -->
+    </div>
+  </div>
+
+  <script>
+    /* Mobbin Reference Screen Database */
+    const REFERENCE_SCREENS = [
+      {
+        id: 'linear-triage',
+        appName: 'Linear',
+        appIconBg: '#121316',
+        appIconSvg: '<svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-white" stroke-width="8"><path d="M10 88L88 10M10 10h78v78H10z"/></svg>',
+        screenName: 'Mobile Issue Triage & Command Menu',
+        platform: 'ios',
+        category: 'Onboarding',
+        screenCount: 4,
+        patterns: ['Command Palette', 'Haptic Gestures', 'Dark Mode UI', 'Status Badges'],
+        colorScheme: 'dark',
+        steps: [
+          {
+            title: 'Active Issue List with Priority Indicators',
+            sub: 'Linear Mobile Workspace',
+            mockup: `
+              <div class="phone-mockup bg-[#0D0E11] text-white p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-6 space-y-3">
+                  <div class="flex items-center justify-between text-xs text-text-muted pt-2">
+                    <span class="font-mono text-[10px] uppercase tracking-wider">Inbox (4)</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  </div>
+                  <div class="bg-[#18191E] p-3 rounded-card-sm border border-white/5 space-y-1">
+                    <div class="flex items-center gap-1.5 text-[11px] text-red-400 font-semibold">
+                      <span>● High</span>
+                      <span class="text-text-muted font-mono">ENG-1084</span>
+                    </div>
+                    <div class="text-xs font-medium">Fix optimistic billing cache invalidation</div>
+                    <div class="text-[10px] text-text-muted">Assigned to you · Updated 4m ago</div>
+                  </div>
+                  <div class="bg-[#18191E] p-3 rounded-card-sm border border-white/5 space-y-1">
+                    <div class="flex items-center gap-1.5 text-[11px] text-amber-400 font-semibold">
+                      <span>● Medium</span>
+                      <span class="text-text-muted font-mono">ENG-1082</span>
+                    </div>
+                    <div class="text-xs font-medium">Audit design tokens for Saans variable weight</div>
+                    <div class="text-[10px] text-text-muted">Design Systems · Updated 2h ago</div>
+                  </div>
+                  <div class="bg-[#18191E] p-3 rounded-card-sm border border-white/5 space-y-1">
+                    <div class="flex items-center gap-1.5 text-[11px] text-blue-400 font-semibold">
+                      <span>● Normal</span>
+                      <span class="text-text-muted font-mono">ENG-1079</span>
+                    </div>
+                    <div class="text-xs font-medium">Add Figma sync integration webhook</div>
+                    <div class="text-[10px] text-text-muted">Integrations · Updated 1d ago</div>
+                  </div>
+                </div>
+                <div class="pb-2 pt-4">
+                  <div class="bg-[#24262E] rounded-pill py-2.5 px-4 text-center text-xs font-semibold text-white/90">
+                    ⌘ Triage selected (3)
+                  </div>
+                </div>
+              </div>
+            `
+          },
+          {
+            title: 'Floating Command Action Sheet',
+            sub: 'Issue State Mutator',
+            mockup: `
+              <div class="phone-mockup bg-[#0D0E11] text-white p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-6 space-y-2 opacity-30">
+                  <div class="bg-[#18191E] p-3 rounded-card-sm border border-white/5 h-16"></div>
+                  <div class="bg-[#18191E] p-3 rounded-card-sm border border-white/5 h-16"></div>
+                </div>
+                <div class="bg-[#1C1E24] p-4 rounded-t-card-md border-t border-white/10 space-y-3 pb-6">
+                  <div class="text-xs font-chunky text-white/90">Set Status</div>
+                  <div class="space-y-1.5">
+                    <div class="p-2 rounded-pill bg-[#2B2E37] text-xs font-medium flex items-center justify-between">
+                      <span>In Progress</span>
+                      <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    </div>
+                    <div class="p-2 rounded-pill hover:bg-white/5 text-xs text-text-muted flex items-center justify-between">
+                      <span>Done</span>
+                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    </div>
+                    <div class="p-2 rounded-pill hover:bg-white/5 text-xs text-text-muted flex items-center justify-between">
+                      <span>Duplicate</span>
+                      <span class="w-2 h-2 rounded-full bg-zinc-400"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'airbnb-checkout',
+        appName: 'Airbnb',
+        appIconBg: '#FF385C',
+        appIconSvg: '<svg viewBox="0 0 32 32" class="w-full h-full fill-white"><path d="M16 1c2 0 4 3 4 7 0 5-3 9-4 12-1-3-4-7-4-12 0-4 2-7 4-7zm0 15c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3z"/></svg>',
+        screenName: 'Instant Booking & Split Checkout',
+        platform: 'ios',
+        category: 'Checkout',
+        screenCount: 5,
+        patterns: ['Split Payment', 'Cancellation Policy Accordion', 'Sticky CTA Pill', 'Price Breakdown'],
+        colorScheme: 'light',
+        steps: [
+          {
+            title: 'Price Breakdown and Reservation Summary',
+            sub: 'Step 1 of 5: Review details',
+            mockup: `
+              <div class="phone-mockup bg-white text-ink p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 space-y-4">
+                  <div class="flex items-center gap-3 border-b border-hairline-soft pb-3">
+                    <div class="w-14 h-14 rounded-card-sm bg-stone-200"></div>
+                    <div>
+                      <div class="text-[11px] text-text-muted">Entire chalet in Zermatt</div>
+                      <div class="text-xs font-chunky">Alpine Minimalist Suite</div>
+                      <div class="text-[10px] text-ink font-semibold">★ 4.98 (124 reviews)</div>
+                    </div>
+                  </div>
+                  <div class="space-y-2 text-xs">
+                    <div class="font-chunky text-sm">Price details</div>
+                    <div class="flex justify-between text-text-muted"><span>$290 x 4 nights</span><span>$1,160</span></div>
+                    <div class="flex justify-between text-text-muted"><span>Cleaning fee</span><span>$120</span></div>
+                    <div class="flex justify-between text-text-muted"><span>Airbnb service fee</span><span>$155</span></div>
+                    <div class="flex justify-between font-chunky border-t border-hairline-soft pt-2 text-ink">
+                      <span>Total (USD)</span>
+                      <span>$1,435</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pb-3 border-t border-hairline-soft pt-3">
+                  <div class="button-primary w-full py-2.5 text-xs">Confirm and pay</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'duolingo-paywall',
+        appName: 'Duolingo',
+        appIconBg: '#58CC02',
+        appIconSvg: '<svg viewBox="0 0 24 24" class="w-full h-full fill-white"><circle cx="8" cy="11" r="3"/><circle cx="16" cy="11" r="3"/><path d="M10 15h4"/></svg>',
+        screenName: 'Super Duolingo Annual Paywall',
+        platform: 'ios',
+        category: 'Paywall',
+        screenCount: 3,
+        patterns: ['Trial Countdown', 'Feature Comparison Checkmarks', 'Family Plan Toggle'],
+        colorScheme: 'light',
+        steps: [
+          {
+            title: 'Annual Subscription Offer with Free Trial',
+            sub: 'Step 1 of 3: Plan selection',
+            mockup: `
+              <div class="phone-mockup bg-white text-ink p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 text-center space-y-3">
+                  <div class="w-14 h-14 mx-auto rounded-squircle bg-[#58CC02] flex items-center justify-center text-white font-black text-2xl">
+                    🦉
+                  </div>
+                  <div class="font-chunky text-lg text-ink">Super Duolingo</div>
+                  <p class="text-[11px] text-text-muted px-2">Learn without ads, practice mistakes with AI roleplay, and get unlimited hearts.</p>
+                  <div class="space-y-2 pt-2 text-left">
+                    <div class="p-3 rounded-card-sm border-2 border-ink flex justify-between items-center bg-canvas-soft">
+                      <div>
+                        <div class="text-xs font-chunky">12 Months (Best Value)</div>
+                        <div class="text-[10px] text-text-muted">$5.00 / month ($59.99 billed now)</div>
+                      </div>
+                      <span class="badge-popular !text-[9px] !py-0.5">Save 60%</span>
+                    </div>
+                    <div class="p-3 rounded-card-sm border border-hairline flex justify-between items-center">
+                      <div>
+                        <div class="text-xs font-semibold">Monthly Plan</div>
+                        <div class="text-[10px] text-text-muted">$12.99 / month</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="pb-3 pt-4">
+                  <div class="button-primary w-full py-2.5 text-xs">Start my 14-day free trial</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'raycast-search',
+        appName: 'Raycast',
+        appIconBg: '#FF6363',
+        appIconSvg: '<svg viewBox="0 0 24 24" class="w-full h-full fill-white"><path d="M12 2L2 12l10 10 10-10L12 2zm0 4.5l5.5 5.5-5.5 5.5-5.5-5.5L12 6.5z"/></svg>',
+        screenName: 'Raycast Pro AI Extension Browser',
+        platform: 'web',
+        category: 'Search & Filter',
+        screenCount: 4,
+        patterns: ['Command Palette', 'Keyboard Shortcuts', 'Faceted Extension Search'],
+        colorScheme: 'dark',
+        steps: [
+          {
+            title: 'Quick Command Palette Extension Window',
+            sub: 'Search & Launcher Mode',
+            mockup: `
+              <div class="phone-mockup bg-[#131317] text-white p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 space-y-3">
+                  <div class="bg-[#1F2027] px-3 py-2 rounded-pill text-xs flex items-center justify-between text-text-muted">
+                    <span>Ask AI or search commands...</span>
+                    <span class="bg-[#2D2E37] px-1.5 py-0.5 rounded text-[10px] text-white font-mono">⌘K</span>
+                  </div>
+                  <div class="space-y-1.5 pt-1">
+                    <div class="p-2 rounded-card-sm bg-[#242630] text-xs flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded bg-red-500/20 text-red-400 flex items-center justify-center text-[10px]">AI</span>
+                        <span class="font-medium">Explain selected code</span>
+                      </div>
+                      <span class="text-[10px] text-text-muted">Raycast AI</span>
+                    </div>
+                    <div class="p-2 rounded-card-sm hover:bg-white/5 text-xs flex items-center justify-between text-text-muted">
+                      <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded bg-purple-500/20 text-purple-400 flex items-center justify-center text-[10px]">F</span>
+                        <span>Figma File Search</span>
+                      </div>
+                      <span class="text-[10px]">Extension</span>
+                    </div>
+                    <div class="p-2 rounded-card-sm hover:bg-white/5 text-xs flex items-center justify-between text-text-muted">
+                      <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px]">G</span>
+                        <span>GitHub Pull Requests</span>
+                      </div>
+                      <span class="text-[10px]">Extension</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pb-2 text-[10px] text-text-muted text-center border-t border-white/5 pt-2">
+                  Press ↵ to Execute · ⎋ to Dismiss
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'spotify-wrapped',
+        appName: 'Spotify',
+        appIconBg: '#1DB954',
+        appIconSvg: '<svg viewBox="0 0 24 24" class="w-full h-full fill-white"><circle cx="12" cy="12" r="10"/></svg>',
+        screenName: 'Personalized Year in Review Experience',
+        platform: 'ios',
+        category: 'Onboarding',
+        screenCount: 6,
+        patterns: ['Story Progress Bar', 'Dynamic Palette Extraction', 'Social Share Canvas'],
+        colorScheme: 'dark',
+        steps: [
+          {
+            title: 'Top Artist Carousel Story Frame',
+            sub: 'Story Step 3 of 6',
+            mockup: `
+              <div class="phone-mockup bg-[#121212] text-white p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-6 space-y-4">
+                  <div class="flex gap-1 pt-2">
+                    <div class="h-1 flex-1 bg-white rounded-full"></div>
+                    <div class="h-1 flex-1 bg-white rounded-full"></div>
+                    <div class="h-1 flex-1 bg-white/40 rounded-full"></div>
+                  </div>
+                  <div class="space-y-1">
+                    <span class="badge-overlay !bg-white/20 text-[10px]">Top Genres 2026</span>
+                    <div class="text-xl font-chunky pt-2">You spent 24,180 minutes listening.</div>
+                  </div>
+                  <div class="bg-gradient-to-br from-emerald-900/60 to-zinc-900 p-4 rounded-card-md border border-white/10 space-y-2">
+                    <div class="text-[10px] uppercase font-mono text-emerald-400">#1 Artist</div>
+                    <div class="font-chunky text-base">Four Tet</div>
+                    <div class="text-xs text-text-muted">Top 0.5% of listeners worldwide</div>
+                  </div>
+                </div>
+                <div class="pb-3">
+                  <div class="button-pill-soft w-full text-xs !bg-white !text-ink">Share this story</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'arc-search',
+        appName: 'Arc',
+        appIconBg: '#141414',
+        appIconSvg: '<svg viewBox="0 0 24 24" class="w-full h-full fill-none stroke-white" stroke-width="2.5"><circle cx="12" cy="12" r="9"/></svg>',
+        screenName: 'Browse for Me AI Summary Cards',
+        platform: 'ios',
+        category: 'Search & Filter',
+        screenCount: 3,
+        patterns: ['Generative Web Page', 'Source Citations', 'Collapsible Sections'],
+        colorScheme: 'light',
+        steps: [
+          {
+            title: 'AI Generative Synthesized Page',
+            sub: 'Direct answer result',
+            mockup: `
+              <div class="phone-mockup bg-[#FBFBFA] text-ink p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 space-y-3">
+                  <div class="bg-white p-3 rounded-card-sm border border-hairline space-y-1.5">
+                    <div class="badge-overlay !bg-ink text-[9px]">Synthesized from 8 sources</div>
+                    <div class="text-xs font-chunky text-ink">What is a 30% squircle curvature?</div>
+                    <p class="text-[10px] text-text-muted leading-relaxed">
+                      An iOS app icon uses a superellipse with n≈4.5 to avoid sharp tangent discontinuities found in normal rounded rectangles.
+                    </p>
+                  </div>
+                  <div class="space-y-1">
+                    <div class="text-[11px] font-semibold text-ink">Key Citations</div>
+                    <div class="p-2 rounded bg-white border border-hairline-soft text-[10px] text-text-muted flex justify-between">
+                      <span>Apple Human Interface Guidelines</span>
+                      <span>↗</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pb-2">
+                  <div class="button-pill-soft w-full text-xs">Read original sources</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'notion-settings',
+        appName: 'Notion',
+        appIconBg: '#000000',
+        appIconSvg: '<span class="text-white font-bold text-lg font-serif">N</span>',
+        screenName: 'Workspace Member Settings & Permissions',
+        platform: 'web',
+        category: 'Settings & Account',
+        screenCount: 4,
+        patterns: ['Access Level Dropdown', 'Invite Link Modal', 'Audit Log Matrix'],
+        colorScheme: 'light',
+        steps: [
+          {
+            title: 'Workspace Access & Seat Management Table',
+            sub: 'Admin Control View',
+            mockup: `
+              <div class="phone-mockup bg-white text-ink p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 space-y-3">
+                  <div class="flex items-center justify-between border-b border-hairline pb-2">
+                    <span class="text-xs font-chunky">Members (18)</span>
+                    <span class="button-pill-soft !text-[10px] !py-1 !px-2.5">Invite people</span>
+                  </div>
+                  <div class="space-y-2 text-xs">
+                    <div class="flex items-center justify-between p-2 rounded bg-canvas-soft">
+                      <div>
+                        <div class="font-medium text-xs">Sarah Jenkins</div>
+                        <div class="text-[10px] text-text-muted">sarah@figma.com</div>
+                      </div>
+                      <span class="text-[10px] font-semibold text-ink bg-white px-2 py-0.5 rounded-pill">Admin</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded bg-canvas-soft">
+                      <div>
+                        <div class="font-medium text-xs">Elena Rostova</div>
+                        <div class="text-[10px] text-text-muted">elena@vercel.com</div>
+                      </div>
+                      <span class="text-[10px] text-text-muted bg-white px-2 py-0.5 rounded-pill">Member</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pb-2 border-t border-hairline-soft pt-2 text-[10px] text-text-muted text-center">
+                  Workspace domain: notion.so/design
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'uber-reserve',
+        appName: 'Uber',
+        appIconBg: '#000000',
+        appIconSvg: '<span class="text-white font-black text-xs">UBER</span>',
+        screenName: 'Ride Reservation & Vehicle Preference',
+        platform: 'android',
+        category: 'Checkout',
+        screenCount: 5,
+        patterns: ['Time Picker Carousel', 'Fleet Type Switcher', 'Luggage Capacity Indicator'],
+        colorScheme: 'dark',
+        steps: [
+          {
+            title: 'Vehicle Type Selection with Estimated Fare',
+            sub: 'Step 2 of 5: Choose a ride',
+            mockup: `
+              <div class="phone-mockup bg-[#141414] text-white p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 space-y-3">
+                  <div class="h-20 bg-zinc-800 rounded-card-sm flex items-center justify-center text-xs text-text-faint">
+                    Map Route Preview (SFO → Downtown)
+                  </div>
+                  <div class="space-y-1.5">
+                    <div class="p-2.5 rounded-card-sm bg-zinc-800 border border-white/20 flex justify-between items-center text-xs">
+                      <div>
+                        <div class="font-chunky text-white">Uber Black</div>
+                        <div class="text-[10px] text-text-muted">3 mins away · Luxury sedan</div>
+                      </div>
+                      <span class="font-chunky text-sm">$64.20</span>
+                    </div>
+                    <div class="p-2.5 rounded-card-sm bg-zinc-900 flex justify-between items-center text-xs opacity-75">
+                      <div>
+                        <div class="font-medium text-white">UberX</div>
+                        <div class="text-[10px] text-text-muted">1 min away · Affordable</div>
+                      </div>
+                      <span class="font-medium text-sm">$32.50</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pb-2">
+                  <div class="button-primary !bg-white !text-ink w-full py-2.5 text-xs">Confirm Uber Black</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'monzo-savings',
+        appName: 'Monzo',
+        appIconBg: '#142236',
+        appIconSvg: '<span class="text-amber-400 font-bold text-sm">M</span>',
+        screenName: 'Savings Pot Lock & Interest Accrual',
+        platform: 'ios',
+        category: 'Profile',
+        screenCount: 3,
+        patterns: ['Emergency Unlock Friction', 'Interest Graph', 'Target Milestone Pill'],
+        colorScheme: 'light',
+        steps: [
+          {
+            title: 'Pot Details with Locked Date and Annual Return',
+            sub: 'Savings Goal Summary',
+            mockup: `
+              <div class="phone-mockup bg-white text-ink p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 space-y-4">
+                  <div class="text-center space-y-1">
+                    <div class="badge-overlay !bg-canvas-soft !text-ink">Locked until Dec 2026</div>
+                    <div class="text-2xl font-chunky pt-2">$14,500.00</div>
+                    <div class="text-xs text-emerald-600 font-semibold">+4.75% AER Variable</div>
+                  </div>
+                  <div class="bg-canvas-soft p-3 rounded-card-sm space-y-2 text-xs">
+                    <div class="flex justify-between"><span>Accrued this month</span><span class="font-semibold">$57.40</span></div>
+                    <div class="flex justify-between text-text-muted"><span>Tax status</span><span>Standard ISA</span></div>
+                  </div>
+                </div>
+                <div class="pb-2">
+                  <div class="button-outline w-full py-2 text-xs">Deposit funds</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'headspace-paywall',
+        appName: 'Headspace',
+        appIconBg: '#F9802B',
+        appIconSvg: '<circle cx="12" cy="12" r="8" fill="#FFFFFF"/>',
+        screenName: 'Mindful Subscription Upgrade Flow',
+        platform: 'android',
+        category: 'Paywall',
+        screenCount: 4,
+        patterns: ['Trial Reminder Timeline', 'Daily Reminder Checkbox', 'Calm Palette'],
+        colorScheme: 'light',
+        steps: [
+          {
+            title: 'Reminder Timeline Before First Charge',
+            sub: 'Transparency Flow',
+            mockup: `
+              <div class="phone-mockup bg-[#FFF9EE] text-ink p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 space-y-4">
+                  <div class="text-center space-y-1">
+                    <div class="text-lg font-chunky">Zero surprises.</div>
+                    <p class="text-[11px] text-text-muted">We will email you 2 days before your free trial concludes.</p>
+                  </div>
+                  <div class="space-y-3 text-xs pl-4 border-l-2 border-amber-300">
+                    <div>
+                      <div class="font-semibold text-ink">Today</div>
+                      <div class="text-[10px] text-text-muted">Instant access to 1,000+ meditations</div>
+                    </div>
+                    <div>
+                      <div class="font-semibold text-ink">Day 12</div>
+                      <div class="text-[10px] text-text-muted">We will notify you via email</div>
+                    </div>
+                    <div>
+                      <div class="font-semibold text-ink">Day 14</div>
+                      <div class="text-[10px] text-text-muted">Subscription begins ($69.99/yr)</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="pb-2">
+                  <div class="button-primary w-full py-2.5 text-xs">Begin 14-day trial</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'superhuman-split',
+        appName: 'Superhuman',
+        appIconBg: '#141414',
+        appIconSvg: '<span class="text-white font-bold text-xs tracking-widest">SH</span>',
+        screenName: 'Split Inbox Configuration & Shortcuts',
+        platform: 'web',
+        category: 'Settings & Account',
+        screenCount: 3,
+        patterns: ['Keyboard Shortcut Visualizer', 'Split Lane Filtering', 'VIP Contact Rules'],
+        colorScheme: 'dark',
+        steps: [
+          {
+            title: 'Keyboard Driven Inbox Splits Manager',
+            sub: 'Productivity configuration',
+            mockup: `
+              <div class="phone-mockup bg-[#111111] text-white p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 space-y-3">
+                  <div class="font-chunky text-sm">Split Inboxes</div>
+                  <div class="space-y-1.5 text-xs">
+                    <div class="p-2.5 rounded bg-zinc-900 border border-white/10 flex justify-between">
+                      <span>Important & VIPs</span>
+                      <span class="text-zinc-400 font-mono">H 1</span>
+                    </div>
+                    <div class="p-2.5 rounded bg-zinc-900/60 flex justify-between text-text-muted">
+                      <span>Calendar Invites</span>
+                      <span class="font-mono">H 2</span>
+                    </div>
+                    <div class="p-2.5 rounded bg-zinc-900/60 flex justify-between text-text-muted">
+                      <span>Newsletters & Logs</span>
+                      <span class="font-mono">H 3</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pb-2">
+                  <div class="button-pill-soft !bg-white/10 !text-white w-full py-2 text-xs">Edit splits (⌘K)</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+      {
+        id: 'strava-paywall',
+        appName: 'Strava',
+        appIconBg: '#FC4C02',
+        appIconSvg: '<svg viewBox="0 0 24 24" class="w-full h-full fill-white"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7.24 14.173h4.171"/></svg>',
+        screenName: 'Athlete Profile & Summit Paywall',
+        platform: 'ios',
+        category: 'Profile',
+        screenCount: 4,
+        patterns: ['Segment Leaderboard Access', 'Route Builder Feature Card', 'Annual Discount Callout'],
+        colorScheme: 'light',
+        steps: [
+          {
+            title: 'Summit Features & Live Segment Comparison',
+            sub: 'Performance Paywall',
+            mockup: `
+              <div class="phone-mockup bg-white text-ink p-4 font-sans flex flex-col justify-between">
+                <div class="phone-notch"></div>
+                <div class="pt-8 space-y-3">
+                  <div class="text-center space-y-1">
+                    <span class="badge-overlay !bg-[#FC4C02] text-[10px]">Strava Subscription</span>
+                    <div class="font-chunky text-base pt-1">Compete on live segments</div>
+                    <p class="text-[10px] text-text-muted">Unlock route planning, matched runs, and custom heart rate analytics.</p>
+                  </div>
+                  <div class="p-3 bg-canvas-soft rounded-card-sm border border-hairline-soft space-y-2 text-xs">
+                    <div class="flex justify-between font-semibold"><span>Yearly Membership</span><span>$79.99/yr</span></div>
+                    <div class="text-[10px] text-text-muted">Equivalent to $6.67/month</div>
+                  </div>
+                </div>
+                <div class="pb-2">
+                  <div class="button-primary !bg-[#FC4C02] w-full py-2.5 text-xs">Start 30-day trial</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      }
+    ];
+
+    const appState = {
+      searchQuery: '',
+      selectedPlatform: 'all',
+      selectedCategory: 'all',
+      sortBy: 'featured',
+      billingCycle: 'yearly',
+      savedFlowIds: new Set(JSON.parse(localStorage.getItem('mobbin_saved_flows') || '[]')),
+      activeInspectorFlow: null,
+      activeInspectorStep: 0,
+      filterSavedOnly: false
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initSearchAndFilters();
+      initPricingToggle();
+      initFaqAccordion();
+      initModals();
+      renderScreenGrid();
+      updateSavedCounter();
+    });
+
+    function initSearchAndFilters() {
+      const searchInput = document.getElementById('library-search-input');
+      const clearSearchBtn = document.getElementById('clear-search-btn');
+      const platformToggles = document.querySelectorAll('#platform-segmented-toggle button');
+      const categoryButtons = document.querySelectorAll('#category-filter-container button');
+      const sortSelector = document.getElementById('sort-selector');
+      const resetBtn = document.getElementById('reset-filters-btn');
+      const navBookmarksBtn = document.getElementById('nav-bookmarks-btn');
+
+      // Search typing input
+      searchInput.addEventListener('input', (e) => {
+        appState.searchQuery = e.target.value.trim().toLowerCase();
+        if (appState.searchQuery.length > 0) {
+          clearSearchBtn.classList.remove('hidden');
+        } else {
+          clearSearchBtn.classList.add('hidden');
+        }
+        renderScreenGrid();
+      });
+
+      // Clear search
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        appState.searchQuery = '';
+        clearSearchBtn.classList.add('hidden');
+        renderScreenGrid();
+      });
+
+      // Platform segmented control
+      platformToggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+          platformToggles.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          appState.selectedPlatform = btn.dataset.platform;
+          appState.filterSavedOnly = false;
+          renderScreenGrid();
+        });
+      });
+
+      // Category filter pills
+      categoryButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          categoryButtons.forEach(b => {
+            b.classList.remove('!bg-ink', '!text-white');
+          });
+          btn.classList.add('!bg-ink', '!text-white');
+          appState.selectedCategory = btn.dataset.category;
+          appState.filterSavedOnly = false;
+          renderScreenGrid();
+        });
+      });
+
+      // Sort selector
+      sortSelector.addEventListener('change', (e) => {
+        appState.sortBy = e.target.value;
+        renderScreenGrid();
+      });
+
+      // Reset filters button
+      resetBtn.addEventListener('click', () => {
+        appState.searchQuery = '';
+        appState.selectedPlatform = 'all';
+        appState.selectedCategory = 'all';
+        appState.filterSavedOnly = false;
+        searchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+
+        platformToggles.forEach(b => b.classList.toggle('active', b.dataset.platform === 'all'));
+        categoryButtons.forEach(b => b.classList.toggle('!bg-ink', b.dataset.category === 'all'));
+        categoryButtons.forEach(b => b.classList.toggle('!text-white', b.dataset.category === 'all'));
+
+        renderScreenGrid();
+      });
+
+      // Saved Bookmarks Filter toggle
+      navBookmarksBtn.addEventListener('click', () => {
+        appState.filterSavedOnly = !appState.filterSavedOnly;
+        if (appState.filterSavedOnly) {
+          showToast(`Showing ${appState.savedFlowIds.size} saved flows in your collection.`);
+        }
+        renderScreenGrid();
+      });
+    }
+
+    // Quick filter helper for hero icons
+    window.filterByApp = function(appName) {
+      const searchInput = document.getElementById('library-search-input');
+      const clearSearchBtn = document.getElementById('clear-search-btn');
+      searchInput.value = appName;
+      appState.searchQuery = appName.toLowerCase();
+      clearSearchBtn.classList.remove('hidden');
+      renderScreenGrid();
+      document.getElementById('library-section').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    function renderScreenGrid() {
+      const grid = document.getElementById('screens-grid');
+      const emptyState = document.getElementById('empty-state-view');
+      const resultsCountText = document.getElementById('results-count-text');
+      const activeFilterBadge = document.getElementById('active-filter-badge');
+
+      // Filter dataset
+      let filtered = REFERENCE_SCREENS.filter(screen => {
+        // Platform filter
+        if (appState.selectedPlatform !== 'all' && screen.platform !== appState.selectedPlatform) {
+          return false;
+        }
+        // Category filter
+        if (appState.selectedCategory !== 'all' && screen.category !== appState.selectedCategory) {
+          return false;
+        }
+        // Saved filter
+        if (appState.filterSavedOnly && !appState.savedFlowIds.has(screen.id)) {
+          return false;
+        }
+        // Search query
+        if (appState.searchQuery) {
+          const matchApp = screen.appName.toLowerCase().includes(appState.searchQuery);
+          const matchScreen = screen.screenName.toLowerCase().includes(appState.searchQuery);
+          const matchPatterns = screen.patterns.some(p => p.toLowerCase().includes(appState.searchQuery));
+          if (!matchApp && !matchScreen && !matchPatterns) return false;
+        }
+        return true;
+      });
+
+      // Sort dataset
+      if (appState.sortBy === 'screens') {
+        filtered.sort((a, b) => b.screenCount - a.screenCount);
+      } else if (appState.sortBy === 'az') {
+        filtered.sort((a, b) => a.appName.localeCompare(b.appName));
+      }
+
+      // Update counters
+      resultsCountText.innerText = `${filtered.length} ${filtered.length === 1 ? 'flow' : 'flows'}`;
+
+      if (appState.filterSavedOnly) {
+        activeFilterBadge.classList.remove('hidden');
+        activeFilterBadge.innerText = 'Collection: Saved Only';
+      } else if (appState.selectedCategory !== 'all' || appState.selectedPlatform !== 'all') {
+        activeFilterBadge.classList.remove('hidden');
+        activeFilterBadge.innerText = `Filtered: ${appState.selectedPlatform !== 'all' ? appState.selectedPlatform.toUpperCase() : ''} ${appState.selectedCategory !== 'all' ? appState.selectedCategory : ''}`.trim();
+      } else {
+        activeFilterBadge.classList.add('hidden');
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      // Build DOM elements
+      grid.innerHTML = filtered.map(item => {
+        const isSaved = appState.savedFlowIds.has(item.id);
+        const firstStep = item.steps[0];
+
+        return `
+          <div class="group bg-canvas border border-hairline-soft rounded-card-md p-4 transition-all duration-200 hover:border-hairline flex flex-col justify-between" data-id="${item.id}">
+            
+            <!-- Card Header: App Squircle Icon + Metadata -->
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 app-icon-squircle flex items-center justify-center p-1.5" style="background-color: ${item.appIconBg}">
+                  <div class="w-full h-full flex items-center justify-center text-white">
+                    ${item.appIconSvg}
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-xs font-chunky text-ink leading-tight">${item.appName}</h4>
+                  <span class="text-[10px] text-text-muted capitalize">${item.platform}</span>
+                </div>
+              </div>
+
+              <!-- Bookmark quick toggle -->
+              <button onclick="toggleBookmark('${item.id}', event)" class="w-7 h-7 rounded-pill flex items-center justify-center text-text-muted hover:text-ink hover:bg-canvas-soft transition-colors" title="${isSaved ? 'Remove from saved' : 'Save flow'}">
+                <svg class="w-4 h-4 ${isSaved ? 'fill-ink text-ink' : 'text-text-muted'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Device Frame Preview Surface -->
+            <div class="relative bg-canvas-soft rounded-card-sm p-4 my-2 flex items-center justify-center overflow-hidden cursor-pointer group-hover:bg-[#ebebeb] transition-colors" onclick="openScreenInspector('${item.id}')">
+              
+              <!-- Category Scrim overlay badge -->
+              <div class="absolute top-2 left-2 z-10">
+                <span class="badge-overlay text-[10px]">${item.category}</span>
+              </div>
+
+              <div class="absolute top-2 right-2 z-10">
+                <span class="badge-overlay !bg-white/80 !text-ink text-[10px] font-mono">${item.screenCount} screens</span>
+              </div>
+
+              <!-- Mini phone render -->
+              <div class="w-36 transition-transform duration-300 group-hover:scale-102">
+                ${firstStep.mockup}
+              </div>
+
+              <!-- Quick action hover overlay -->
+              <div class="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity pointer-events-none">
+                <span class="button-primary !text-xs !py-1.5 !px-3 shadow-none">Inspect Flow ↗</span>
+              </div>
+            </div>
+
+            <!-- Card Footer: Flow Title + Pattern Pills -->
+            <div class="mt-2 pt-1">
+              <h5 class="text-xs font-semibold text-ink line-clamp-1 mb-1.5 cursor-pointer" onclick="openScreenInspector('${item.id}')">
+                ${item.screenName}
+              </h5>
+              <div class="flex items-center gap-1.5 overflow-hidden text-[10px] text-text-muted">
+                <span class="bg-canvas-soft px-2 py-0.5 rounded-pill font-mono">${item.patterns[0]}</span>
+                ${item.patterns[1] ? `<span class="bg-canvas-soft px-2 py-0.5 rounded-pill font-mono">${item.patterns[1]}</span>` : ''}
+              </div>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function initPricingToggle() {
+      const toggleButtons = document.querySelectorAll('#billing-cycle-toggle button');
+      const proPriceVal = document.getElementById('pro-price-val');
+      const proPricePeriod = document.getElementById('pro-price-period');
+      const teamPriceVal = document.getElementById('team-price-val');
+      const teamPricePeriod = document.getElementById('team-price-period');
+
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          toggleButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const isYearly = btn.dataset.billing === 'yearly';
+
+          if (isYearly) {
+            proPriceVal.innerText = '$12';
+            proPricePeriod.innerText = '/ month (billed yearly)';
+            teamPriceVal.innerText = '$24';
+            teamPricePeriod.innerText = '/ member / month (billed yearly)';
+          } else {
+            proPriceVal.innerText = '$15';
+            proPricePeriod.innerText = '/ month (billed monthly)';
+            teamPriceVal.innerText = '$30';
+            teamPricePeriod.innerText = '/ member / month (billed monthly)';
+          }
+        });
+      });
+    }
+
+    function initFaqAccordion() {
+      const rows = document.querySelectorAll('.faq-row');
+      rows.forEach(row => {
+        const trigger = row.querySelector('.faq-trigger');
+        const content = row.querySelector('.faq-content');
+        const icon = row.querySelector('.faq-icon');
+
+        trigger.addEventListener('click', () => {
+          const isOpen = !content.classList.contains('hidden');
+          // Close others
+          rows.forEach(r => {
+            r.querySelector('.faq-content').classList.add('hidden');
+            r.querySelector('.faq-icon').classList.remove('rotate-180');
+          });
+
+          if (!isOpen) {
+            content.classList.remove('hidden');
+            icon.classList.add('rotate-180');
+          }
+        });
+      });
+    }
+
+    function initModals() {
+      const inspectorModal = document.getElementById('screen-inspector-modal');
+      const closeInspectorBtn = document.getElementById('close-inspector-btn');
+      const prevStepBtn = document.getElementById('prev-step-btn');
+      const nextStepBtn = document.getElementById('next-step-btn');
+      const inspectorCopyBtn = document.getElementById('inspector-copy-btn');
+      const inspectorSaveBtn = document.getElementById('inspector-save-btn');
+
+      const authModal = document.getElementById('auth-modal');
+      const openLoginBtn = document.getElementById('open-login-btn');
+      const openSignupBtn = document.getElementById('open-signup-btn');
+      const closeAuthBtn = document.getElementById('close-auth-btn');
+
+      // Close modals on Esc key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeInspector();
+          closeAuth();
+        }
+      });
+
+      // Close on backdrop click
+      inspectorModal.addEventListener('click', (e) => {
+        if (e.target === inspectorModal) closeInspector();
+      });
+      authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) closeAuth();
+      });
+
+      closeInspectorBtn.addEventListener('click', closeInspector);
+      closeAuthBtn.addEventListener('click', closeAuth);
+
+      // Auth modal triggers
+      openLoginBtn.addEventListener('click', () => {
+        document.getElementById('auth-modal-title').innerText = 'Log in to Mobbin.';
+        authModal.classList.remove('hidden');
+      });
+      openSignupBtn.addEventListener('click', () => {
+        document.getElementById('auth-modal-title').innerText = 'Join Mobbin for free.';
+        authModal.classList.remove('hidden');
+      });
+
+      // Flow step carousel controls
+      prevStepBtn.addEventListener('click', () => {
+        if (!appState.activeInspectorFlow) return;
+        if (appState.activeInspectorStep > 0) {
+          appState.activeInspectorStep--;
+          updateInspectorStepView();
+        }
+      });
+
+      nextStepBtn.addEventListener('click', () => {
+        if (!appState.activeInspectorFlow) return;
+        if (appState.activeInspectorStep < appState.activeInspectorFlow.steps.length - 1) {
+          appState.activeInspectorStep++;
+          updateInspectorStepView();
+        }
+      });
+
+      // Copy share link button
+      inspectorCopyBtn.addEventListener('click', () => {
+        if (!appState.activeInspectorFlow) return;
+        const fakeUrl = `${window.location.origin}#screen=${appState.activeInspectorFlow.id}`;
+        
+        // Safe clipboard copy
+        try {
+          const tempInput = document.createElement('input');
+          tempInput.value = fakeUrl;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+          showToast('Flow reference link copied to clipboard.');
+        } catch (err) {
+          showToast('Link ready to share: ' + fakeUrl);
+        }
+      });
+
+      // Save flow inside inspector
+      inspectorSaveBtn.addEventListener('click', () => {
+        if (!appState.activeInspectorFlow) return;
+        toggleBookmark(appState.activeInspectorFlow.id);
+        updateInspectorSaveState();
+      });
+    }
+
+    function closeInspector() {
+      document.getElementById('screen-inspector-modal').classList.add('hidden');
+      appState.activeInspectorFlow = null;
+    }
+
+    function closeAuth() {
+      document.getElementById('auth-modal').classList.add('hidden');
+    }
+
+    window.openScreenInspector = function(flowId) {
+      const flow = REFERENCE_SCREENS.find(s => s.id === flowId);
+      if (!flow) return;
+
+      appState.activeInspectorFlow = flow;
+      appState.activeInspectorStep = 0;
+
+      // Populate header info
+      const appIconEl = document.getElementById('inspector-app-icon');
+      appIconEl.style.backgroundColor = flow.appIconBg;
+      appIconEl.innerHTML = flow.appIconSvg;
+
+      document.getElementById('inspector-app-name').innerText = flow.appName;
+      document.getElementById('inspector-platform-badge').innerText = flow.platform.toUpperCase();
+      document.getElementById('inspector-screen-name').innerText = flow.screenName;
+
+      // Pattern tags
+      const patternContainer = document.getElementById('inspector-pattern-tags');
+      patternContainer.innerHTML = '<span class="text-text-muted font-medium">Patterns:</span>' + 
+        flow.patterns.map(p => `<span class="bg-canvas-soft px-2.5 py-1 rounded-pill font-mono text-[10px] text-ink">${p}</span>`).join('');
+
+      updateInspectorSaveState();
+      updateInspectorStepView();
+
+      document.getElementById('screen-inspector-modal').classList.remove('hidden');
+    };
+
+    function updateInspectorSaveState() {
+      if (!appState.activeInspectorFlow) return;
+      const isSaved = appState.savedFlowIds.has(appState.activeInspectorFlow.id);
+      const label = document.getElementById('inspector-save-label');
+      label.innerText = isSaved ? 'Saved' : 'Save';
+    }
+
+    function updateInspectorStepView() {
+      const flow = appState.activeInspectorFlow;
+      const stepIdx = appState.activeInspectorStep;
+      const totalSteps = flow.steps.length;
+      const stepData = flow.steps[stepIdx] || flow.steps[0];
+
+      // Update counter
+      document.getElementById('step-counter-label').innerText = `Screen ${stepIdx + 1} of ${totalSteps} in flow`;
+
+      // Update carousel buttons
+      document.getElementById('prev-step-btn').disabled = (stepIdx === 0);
+      document.getElementById('next-step-btn').disabled = (stepIdx === totalSteps - 1);
+
+      // Render device mockup
+      const frame = document.getElementById('inspector-mockup-frame');
+      frame.innerHTML = stepData.mockup;
+    }
+
+    window.toggleBookmark = function(flowId, event) {
+      if (event) event.stopPropagation();
+
+      if (appState.savedFlowIds.has(flowId)) {
+        appState.savedFlowIds.delete(flowId);
+        showToast('Flow removed from your saved collection.');
+      } else {
+        appState.savedFlowIds.add(flowId);
+        showToast('Flow saved to your personal reference library.');
+      }
+
+      // Persist to localStorage
+      localStorage.setItem('mobbin_saved_flows', JSON.stringify([...appState.savedFlowIds]));
+
+      updateSavedCounter();
+      renderScreenGrid();
+      if (appState.activeInspectorFlow) updateInspectorSaveState();
+    };
+
+    function updateSavedCounter() {
+      const counterEl = document.getElementById('saved-counter-badge');
+      if (counterEl) {
+        counterEl.innerText = appState.savedFlowIds.size;
+      }
+    }
+
+    window.handleAuthSubmit = function() {
+      const email = document.getElementById('auth-email-input').value;
+      closeAuth();
+      showToast(`Welcome! A verification link has been sent to ${email}`);
+    };
+
+    document.getElementById('auth-google-btn').addEventListener('click', () => {
+      closeAuth();
+      showToast('Successfully authenticated via Google SSO.');
+    });
+
+    let toastTimeout = null;
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const messageEl = document.getElementById('toast-message');
+
+      messageEl.innerHTML = `
+        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+        <span>${message}</span>
+      `;
+
+      container.classList.remove('opacity-0', 'translate-y-3');
+      container.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        container.classList.remove('opacity-100', 'translate-y-0');
+        container.classList.add('opacity-0', 'translate-y-3');
+      }, 2800);
+    }
+  </script>
+</body>
+</html>
